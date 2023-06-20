@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os
 import dj_database_url
+import re
 
 if os.path.exists('env.py'):
     import env
@@ -62,10 +63,12 @@ SECRET_KEY = os.environ['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = 'DEV' in os.environ
 
-ALLOWED_HOSTS = ['localhost',
-                 'md82-drfapi-4f3d2bfe57a7.herokuapp.com',
-                 '8000-markdaniel1982-rest1-i4xpavmfdq.us2.codeanyapp.com'
-                 ]
+ALLOWED_HOSTS = [
+    'md82-moments-9658365fe6c5.herokuapp.com'
+    'localhost',
+    'md82-drfapi-4f3d2bfe57a7.herokuapp.com',
+    '8000-markdaniel1982-rest1-i4xpavmfdq.us2.codeanyapp.com',
+    ]
 
 
 # Application definition
@@ -108,13 +111,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-if 'CLIENT_ORIGIN' in os.environ:
-    CORS_ALLOWED_ORIGINS = [
-        os.environ.get('CLIENT_ORIGIN')
-    ]
-else:
+if 'CLIENT_ORIGIN_DEV' in os.environ:
+    extracted_url = re.match(
+        r'^([^.]+)', os.environ.get('CLIENT_ORIGIN_DEV', ''), re.IGNORECASE).group(0)
+
     CORS_ALLOWED_ORIGIN_REGEXES = [
-        r"^https://.*\.gitpod\.io$",
+        rf"{extracted_url}.(eu|us)\d+\.codeanyapp\.com$",
     ]
 CORS_ALLOW_CREDENTIALS = True
 
