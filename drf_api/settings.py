@@ -63,7 +63,9 @@ SECRET_KEY = os.environ['SECRET_KEY']
 DEBUG = 'DEV' in os.environ
 
 ALLOWED_HOSTS = ['localhost',
-                 '/md82-drfapi-4f3d2bfe57a7.herokuapp.com']
+                 'md82-drfapi-4f3d2bfe57a7.herokuapp.com',
+                 '8000-markdaniel1982-rest1-i4xpavmfdq.us2.codeanyapp.com'
+                 ]
 
 
 # Application definition
@@ -85,7 +87,6 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'dj_rest_auth.registration',
     'dj_rest_auth.registration',
     'corsheaders',
 
@@ -152,7 +153,6 @@ else:
     DATABASES = {
         'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
     }
-
 
 
 # Password validation
